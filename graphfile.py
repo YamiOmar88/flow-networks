@@ -47,25 +47,46 @@ class GraphFile:
         return True
     
     
+    def read_dictionary_from_file(self, separator=' '):
+        '''This function reads a dictionary from a file. The file 
+        must contain just two columns: key and value separated by 
+        separator (default: space).'''
+        my_dict = dict()
+        with open(self.filename) as f:
+            for line in f:
+                line = line.strip().split(separator)
+                k, v = line[0], line[1]
+                my_dict[k] = v
+        return my_dict
     
-    def read_centrality_values_from_file(self):
+    
+    def read_centrality_values_from_file(self, separator=' '):
         '''Read centrality values from file. The file must contain 
         one node per line and its centrality value as follows:
         i c_i'''
-        C = {}
-        with open(self.filename) as f:
-            for line in f:
-                line = line.strip().split()
-                i, c_i = line[0], float(line[1])
-            
-                try:
-                    i = int(i)
-                except ValueError:
-                    pass 
-            
-                C[i] = c_i
+        d = self.read_dictionary_from_file()
+        C = dict()
+        for k,v in d.items():
+            v = float(v)
+            try:
+                k = int(k)
+            except:
+                pass
+            C[k] = v
         return C
-    
+        
+    def read_nodes_capacity_from_file(self, separator=' '):
+        '''Read nodes capacity from file. The file must contain 
+        one node per line and its capacity value: i c_i. The 
+        input variable separator (default=' ') allows to handle 
+        files where the separator is other than white space. It is 
+        currently implemented for integer node names. '''
+        d = self.read_dictionary_from_file(separator)
+        nodes_capacity = dict()
+        for k,v in d.items():
+            k,v = int(k), int(v)
+            nodes_capacity[k] = v
+        return nodes_capacity
     
 
     def write_centrality_values_to_file(self, C):
