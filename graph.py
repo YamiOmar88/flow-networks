@@ -63,6 +63,17 @@ class Graph:
             return self._remove_edges_below_tolerance(self.edges, tolerance)
         
     
+    def find_antiparallel_edges(self):
+        ''' '''
+        antiparallel = []
+        for k in self.edges.keys():
+            antiparallel_edge = (k[1],k[0])
+            if self.edges.get(antiparallel_edge, False):
+                antiparallel.append(k)
+        antiparallel.sort()
+        return antiparallel
+    
+    
     def searchPaths(self, i, j, visited, path):
         '''Searches all possible paths from node i to node j.'''
         # Set current node as visited and store it in path 
