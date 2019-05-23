@@ -30,7 +30,7 @@ class GraphFile:
                 except ValueError:
                     pass
         
-                w_ij = int(w_ij)
+                w_ij = float(w_ij)
                 edges[(i,j)] = w_ij 
         
         return edges
