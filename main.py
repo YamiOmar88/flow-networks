@@ -7,6 +7,7 @@ from graph import Graph
 from capacity import Capacity
 from fordfulkerson import FordFulkerson
 
+
 # Input data
 # ==========
 graph_to_study = input("Choose graph to study: F1, F2 or F3? ")
@@ -16,13 +17,13 @@ graph_to_study = input("Choose graph to study: F1, F2 or F3? ")
 # ==========
 filename = "data/" + graph_to_study + ".txt"
 edges = GraphFile(filename).read_edges_from_file()
-old_F2 = Graph(edges)
+F = Graph(edges)
 
 # Get edges capacity
 # ==================
 nodes_capacity = GraphFile("data/nodes_capacity.txt").read_nodes_capacity_from_file()
 C = Capacity(nodes_capacity, 'i', 'f')
-C_edges = C.get_edges_capacity(old_F2, "weight")
+C_edges = C.get_edges_capacity(F, "weight")
 
 for k,v in C_edges.items():
     if ("i" in k) or ("f" in k):
@@ -34,7 +35,7 @@ C_edges = {k:v for k,v in C_edges.items() if v > 0}
 
 # Flow Network
 # ============
-flow_network = Graph(C_edges)
+flow_network = Graph(C_edges.copy())
 
 antiparallel_edges = flow_network.find_antiparallel_edges()
 counter = 100
