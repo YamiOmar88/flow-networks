@@ -1,3 +1,7 @@
 __pycache__/
 data
 results
+
+2019_*_*_*.py
+*.gv
+*.gv.pdf
