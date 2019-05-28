@@ -64,7 +64,7 @@ class Graph:
         
     
     def find_antiparallel_edges(self):
-        ''' '''
+        '''This function finds pairs of antiparallel edges.'''
         antiparallel = []
         for k in self.edges.keys():
             antiparallel_edge = (k[1],k[0])
