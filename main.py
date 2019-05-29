@@ -33,6 +33,8 @@ for k,v in C_edges.items():
         
 C_edges = {k:v for k,v in C_edges.items() if v > 0}
 
+
+
 # Flow Network
 # ============
 flow_network = Graph(C_edges.copy())
@@ -73,3 +75,20 @@ print("Total items to produce per day: ", count)
 filename = "results/flow_fraction_" + graph_to_study + ".txt" 
 outFile = GraphFile(filename)
 outFile.write_graph_to_file(flow_fraction)
+
+
+
+# Bottlenecks
+# ===========
+C_graph = Graph(C_edges.copy())
+ingoing, outgoing = C_graph.adjacencyList 
+
+for i,j_list in outgoing.items():
+    bottleneck = True
+    if len(j_list) == 0: continue
+    for j in j_list:
+        fraction = flow_fraction.get((i,j), 0)
+        if fraction != 1:
+            bottleneck = False
+            break 
+    print("Is {} a bottleneck? {}".format(i, bottleneck))
